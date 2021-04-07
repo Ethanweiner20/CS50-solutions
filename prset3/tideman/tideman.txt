@@ -1,0 +1,36 @@
+Notes
+
+- The winner of a Tideman election = The
+- How to determine the winner:
+--- Construct a graph of candidates, w/ arrows denoting who wins in the pairings
+--- The source of the graph is the winner because by definition, it only has outward arrows, and so "beats" everyone else
+- Special case: There may not be a defined source of the graph (if the graph is cyclical)
+--- Implement/"lock in" the "stronger" edges (those w/ greater margins of victory) FIRST
+--- Do this UNTIL THE NEXT EDGE WOULD CREATE A CYLCE (so that a source remains)
+--- This ensures that the winner is that who received the most definitive victories
+
+1. Tally: For each PAIR of candidates, determine WINNER, MARGIN?, & STRENGTH (# of voters who preferred winning candidate)
+2. Sort: Sort all pairs of candidates in terms of DECREASING STRENGTH
+3. Lock: [Starting w/ strongest pair] Lock in each candidate until the next step would => cycle (keep a "list of breadcrumbs"?)
+--- i.e. Until the "destination" in a new pair becomes the "origin" of an existing pair
+4. Determine winner: Determine the source of the graph by finding the candidate who does not have an edge
+
+Represent the Graph as an array of candidate pairs
+
+Steps in program
+1. Retrieve all the candidates
+2. Initialize the "locked" pairs as an empty graph, with only false values
+3. For each voter:
+--- vote: Determine their rankings
+--- recordPreferences: Update the global "preferences" variable (the PAIRS) given the new ranking
+4. [Once votes are in] Use the pairs in "preferences" (starting with the highest margins) to begin constructing the "locked" graph
+--- SORT the pairs from highest to lowest margins
+--- LOCK the pairs into the graph
+5. Using the locked graph, print the winner of the election
+
+Notes:
+- The candidate index is implicitly defined by the ORDER of candidates in the candidates array
+
+
+
+QUESTION TO ASK on ED: Recursive VS iterative solution? Which is better?
